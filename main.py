@@ -4,10 +4,19 @@ from fastapi.responses import JSONResponse
 import shutil
 import uuid
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 TEMP_DIR = "temp_uploads"
 os.makedirs(TEMP_DIR, exist_ok=True)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health")
 def health_check():
