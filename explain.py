@@ -117,7 +117,14 @@ def explain_with_occlusion(image_path: str) -> str | None:
 
 # --- Unified Entrypoint ---
 def explain_image(image_path: str) -> dict:
+    shap_res = explain_with_shap(image_path)
+    occl_res = explain_with_occlusion(image_path)
+
+    print("[DEBUG] SHAP length:", len(shap_res) if shap_res else None)
+    print("[DEBUG] OCCL length:", len(occl_res) if occl_res else None)
+
     return {
-        "shap_base64": explain_with_shap(image_path),
-        "occlusion_base64": explain_with_occlusion(image_path)
+        "shap_base64": shap_res,
+        "occlusion_base64": occl_res
     }
+
